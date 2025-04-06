@@ -28,6 +28,8 @@ class MaterialTheme extends AdaptiveBundle {
             MaterialDetailPageBuilder(),
             MaterialMasterTileBuilder(),
             MaterialListTileBuilder(),
+            MaterialAlertDialogBuilder(),
+            MaterialCardBuilder(),
           },
           bundles: {
             MaterialIcons(),

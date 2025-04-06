@@ -26,3 +26,5 @@ export 'widget_builders/fluentui_master_detail_builder.dart';
 export 'widget_builders/fluentui_detail_page_builder.dart';
 export 'widget_builders/fluentui_master_tile_builder.dart';
 export 'widget_builders/fluentui_list_tile_builder.dart';
+export 'widget_builders/fluentui_alert_dialog_builder.dart';
+export 'widget_builders/fluentui_card_builder.dart';

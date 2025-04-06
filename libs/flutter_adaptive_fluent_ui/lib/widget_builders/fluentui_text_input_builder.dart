@@ -45,7 +45,7 @@ class FluentUITextInputBuilder
       onSubmitted: component.onSubmitted,
       // onAppPrivateCommand,
       inputFormatters: component.inputFormatters,
-      enabled: component.enabled,
+      enabled: component.enabled ?? false,
       // ignorePointers,
       cursorWidth: component.cursorWidth,
       cursorHeight: component.cursorHeight,
