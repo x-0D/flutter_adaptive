@@ -43,6 +43,8 @@ dependencies:
   flutter_adaptive_yaru:
     path: ../libs/flutter_adaptive_yaru
 
+  flutter_adaptive_chicago:
+    path: ../libs/flutter_adaptive_chicago
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

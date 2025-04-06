@@ -1,0 +1,122 @@
+# Flutter Adaptive Library Ruleset
+
+## Overview
+The flutter_adaptive library provides a universal developer experience for painless multiplatform development in Flutter. It enables developers to write platform-agnostic code while automatically rendering the appropriate native-looking UI components for each platform.
+
+## Project Structure
+
+### Core Libraries
+Each platform-specific library has its exports defined under `{{library_name}}/lib/{{library_name}}.dart`:
+- `flutter_adaptive_core` - Core functionality, Cupertino and Material widgets
+- `flutter_adaptive_fluent_ui` - Windows Fluent UI implementation
+- `flutter_adaptive_macos_ui` - macOS UI implementation
+- `flutter_adaptive_yaru` - Linux Yaru UI implementation
+
+### Theme Bundles
+Each platform has its own theme bundle extending `AdaptiveBundle`:
+- `MaterialTheme` - Android/Material Design
+- `CupertinoTheme` - iOS/Cupertino Design
+- `FluentUITheme` - Windows Fluent UI
+- `MacosUITheme` - macOS UI
+- `YaruTheme` - Linux Yaru UI
+
+### Widget Implementation Structure
+1. Core Widget Interface:
+   - Located in `flutter_adaptive_core/lib/components/`
+   - Extends `AdaptiveWidget` class
+   - Defines the widget's interface and properties
+   - **Exception**: Material and Cupertino widgets are located in `flutter_adaptive_core/lib/themes/material/` and `flutter_adaptive_core/lib/themes/cupertino/` respectively
+
+2. Platform-Specific Implementations:
+   - Located in `{{library_name}}/lib/widget_builders/`
+   - Extends `AdaptiveWidgetBuilder<{{adaptive_widget_type}}>`
+   - Implements the actual widget rendering for each platform
+   - **Exception**: Material and Cupertino builders are located in their respective theme directories:
+     - Material: `flutter_adaptive_core/lib/themes/material/widget_builders/`
+     - Cupertino: `flutter_adaptive_core/lib/themes/cupertino/widget_builders/`
+
+3. Theme Integration:
+   - Widget builders must be registered in their respective theme bundles
+   - Theme bundles are registered in the root `Adaptive` widget
+   - **Exception**: Material and Cupertino themes are automatically included in the `AdaptiveTheme` bundle
+
+## Widget Implementation Guidelines
+
+### Creating New Adaptive Widgets
+1. Create the widget interface in `flutter_adaptive_core/lib/components/`:
+```dart
+class AdaptiveMyWidget extends AdaptiveWidget {
+  const AdaptiveMyWidget({
+    super.key,
+    required this.property,
+  });
+  
+  final PropertyType property;
+}
+```
+
+2. Implement platform-specific builders in each theme's `widget_builders/` directory:
+```dart
+class MaterialMyWidgetBuilder extends AdaptiveWidgetBuilder<AdaptiveMyWidget> {
+  @override
+  Widget build(BuildContext context, AdaptiveMyWidget widget) {
+    return MaterialWidget(
+      property: widget.property,
+    );
+  }
+}
+```
+
+3. Register the builder in the appropriate theme bundle:
+```dart
+class MaterialTheme extends AdaptiveBundle {
+  MaterialTheme() : super(
+    builders: {
+      MaterialMyWidgetBuilder(),
+      // ... other builders
+    }
+  );
+}
+```
+
+### Special Cases
+1. Material and Cupertino Widgets:
+   - These are considered core platform implementations
+   - Located within the `flutter_adaptive_core` package
+   - Follow a different directory structure than other platform implementations
+   - Automatically included in the `AdaptiveTheme` bundle
+
+2. Theme Registration:
+   - Material and Cupertino themes are automatically registered
+   - Other platform themes must be explicitly registered in the `Adaptive` widget
+   - Example:
+   ```dart
+   Adaptive(
+     bundles: {
+       FluentUITheme(),
+       MacosUITheme(),
+       YaruTheme(),
+     },
+     builder: (context) => MyApp(),
+   )
+   ```
+
+### Best Practices
+1. Always implement both dark and light themes for each platform
+2. Use platform-specific widgets in their proper contexts
+3. Follow platform-specific design guidelines
+4. Implement proper error handling and fallbacks
+5. Document widget properties and usage
+6. Include platform-specific examples in documentation
+
+### Testing Requirements
+1. Unit tests for widget interfaces
+2. Platform-specific widget tests
+3. Integration tests for theme switching
+4. Visual regression tests for each platform
+
+## Project Wiki
+Additional documentation can be found in the `/flutter_adaptive.wiki/` directory:
+- [Adaptive-Layouts.md](mdc:flutter_adaptive.wiki/Adaptive-Layouts.md)
+- [Adaptive-Widgets.md](mdc:flutter_adaptive.wiki/Adaptive-Widgets.md)
+- [Advanced.asciidoc](mdc:flutter_adaptive.wiki/Advanced.asciidoc) 

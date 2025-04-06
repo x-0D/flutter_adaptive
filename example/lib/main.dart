@@ -1,10 +1,13 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_core/flutter_adaptive_core.dart';
+import 'package:flutter_adaptive_core/layouts/adaptive_alert_dialog.dart';
 import 'package:flutter_adaptive_fluent_ui/flutter_adaptive_fluent_ui.dart';
 import 'package:flutter_adaptive_macos_ui/flutter_adaptive_macos_ui.dart';
 import 'package:flutter_adaptive_yaru/flutter_adaptive_yaru.dart';
+import 'package:flutter_adaptive_chicago/flutter_adaptive_chicago.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -12,22 +15,18 @@ void main() {
 }
 
 String detectPlatform() {
-  if (Platform.isIOS) {
+  if (defaultTargetPlatform == TargetPlatform.iOS) {
     return 'Cupertino';
   }
-
-  if (Platform.isMacOS) {
+  if (defaultTargetPlatform == TargetPlatform.macOS) {
     return 'MacosUI';
   }
-
-  if (Platform.isWindows) {
+  if (defaultTargetPlatform == TargetPlatform.windows) {
     return 'FluentUI';
   }
-
-  if (Platform.isLinux) {
+  if (defaultTargetPlatform == TargetPlatform.linux) {
     return 'Yaru';
   }
-
   return 'Material';
 }
 
@@ -42,6 +41,7 @@ class MyApp extends StatelessWidget {
         FluentUITheme(),
         YaruTheme(),
         MacosUITheme(),
+        ChicagoTheme(),
         AdaptiveTheme(defaultTheme: detectPlatform()),
       },
       builder: (context) => ChangeNotifierProvider(
@@ -58,15 +58,15 @@ class MyApp extends StatelessWidget {
                   child: Row(children: [
                     AdaptiveIconButton(
                         onPressed: () {},
-                        icon: AdaptiveIcon(AdaptiveIcons.add)),
-                    Expanded(
+                        icon: const AdaptiveIcon(AdaptiveIcons.add)),
+                    const Expanded(
                         child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: AdaptiveTextInput(placeholder: "Message"),
                     )),
                     AdaptiveIconButton(
                         onPressed: () {},
-                        icon: AdaptiveIcon(AdaptiveIcons.send)),
+                        icon: const AdaptiveIcon(AdaptiveIcons.send)),
                   ]),
                 ),
               );
@@ -84,56 +84,57 @@ class MyApp extends StatelessWidget {
                         destinations: <AdaptiveDestination>[
                           AdaptiveDestination(
                             showOnDrawerWhenBottomWithDrawer: false,
-                            icon: AdaptiveIcon(
+                            icon: const AdaptiveIcon(
                               AdaptiveIcons.home,
                             ),
                             label: 'Home',
                             page: AdaptivePage(
                                 appBar: AdaptiveAppBar(
-                                  title: AdaptiveText("Home"),
+                                  title: const AdaptiveText("Home"),
                                   actions: [
                                     AdaptiveAppBarAction(
                                       onPressed: () {},
-                                      label: Text('Bluetooth'),
-                                      icon:
-                                          AdaptiveIcon(AdaptiveIcons.bluetooth),
+                                      label: const Text('Bluetooth'),
+                                      icon: const AdaptiveIcon(
+                                          AdaptiveIcons.bluetooth),
                                     ),
                                     AdaptiveAppBarAction(
                                         onPressed: () {},
-                                        label: AdaptiveText('Search'),
-                                        icon:
-                                            AdaptiveIcon(AdaptiveIcons.search)),
+                                        label: const AdaptiveText('Search'),
+                                        icon: const AdaptiveIcon(
+                                            AdaptiveIcons.search)),
                                     AdaptiveAppBarAction(
                                         onPressed: () {},
-                                        label: AdaptiveText('Edit'),
-                                        icon: AdaptiveIcon(AdaptiveIcons.edit)),
+                                        label: const AdaptiveText('Edit'),
+                                        icon: const AdaptiveIcon(
+                                            AdaptiveIcons.edit)),
                                   ],
                                 ),
                                 bottomBar: bottomBar(),
-                                child: MyHomePage()),
+                                child: const MyHomePage()),
                             showOnNavigationRail: true,
                             showOnBottomAppBar: true,
                           ),
                           AdaptiveDestination(
                             showOnDrawerWhenBottomWithDrawer: false,
-                            icon: AdaptiveIcon(AdaptiveIcons.chat),
+                            icon: const AdaptiveIcon(AdaptiveIcons.chat),
                             label: 'Chat',
                             page: AdaptivePage(
                                 appBar: AdaptiveAppBar(
-                                  title: Text("Chat"),
+                                  title: const Text("Chat"),
                                   actions: [
                                     AdaptiveAppBarAction(
                                         onPressed: () {},
-                                        label: AdaptiveText('Search'),
-                                        icon:
-                                            AdaptiveIcon(AdaptiveIcons.search)),
+                                        label: const AdaptiveText('Search'),
+                                        icon: const AdaptiveIcon(
+                                            AdaptiveIcons.search)),
                                   ],
                                 ),
-                                child: Center(child: Text('Chat Page'))),
+                                child: const Center(child: Text('Chat Page'))),
                             showOnNavigationRail: true,
                             showOnBottomAppBar: true,
                           ),
-                          AdaptiveDestination(
+                          const AdaptiveDestination(
                             showOnDrawerWhenBottomWithDrawer: false,
                             icon: AdaptiveIcon(AdaptiveIcons.music_note),
                             label: 'Music',
@@ -143,7 +144,7 @@ class MyApp extends StatelessWidget {
                             showOnBottomAppBar: true,
                           ),
                           AdaptiveDestination(
-                            icon: AdaptiveIcon(AdaptiveIcons.album),
+                            icon: const AdaptiveIcon(AdaptiveIcons.album),
                             label: 'Master-Detail',
                             page: AdaptivePage(
                                 child: MasterDetailPage(
@@ -158,7 +159,7 @@ class MyApp extends StatelessWidget {
                         name: "Settings",
                         destinations: <AdaptiveDestination>[
                           AdaptiveDestination(
-                            icon: AdaptiveIcon(
+                            icon: const AdaptiveIcon(
                               AdaptiveIcons.edit,
                             ),
                             label: 'Edit',
@@ -167,22 +168,23 @@ class MyApp extends StatelessWidget {
                                   actions: [
                                     AdaptiveAppBarAction(
                                         onPressed: () {},
-                                        label: AdaptiveText('Aspect Ratio'),
-                                        icon: AdaptiveIcon(
+                                        label:
+                                            const AdaptiveText('Aspect Ratio'),
+                                        icon: const AdaptiveIcon(
                                             AdaptiveIcons.aspect_ratio)),
                                   ],
                                 ),
-                                child: Center(child: Text('Edit Page'))),
+                                child: const Center(child: Text('Edit Page'))),
                             showOnNavigationRail: true,
                           ),
-                          AdaptiveDestination(
+                          const AdaptiveDestination(
                             icon: AdaptiveIcon(AdaptiveIcons.cake),
                             label: 'Cake',
                             page: AdaptivePage(
                                 appBar: AdaptiveAppBar(),
                                 child: Center(child: Text('Cake Page'))),
                           ),
-                          AdaptiveDestination(
+                          const AdaptiveDestination(
                             icon: AdaptiveIcon(AdaptiveIcons.book),
                             label: 'Book',
                             page: AdaptivePage(
@@ -190,14 +192,14 @@ class MyApp extends StatelessWidget {
                                 child: Center(child: Text('Book Page'))),
                             showOnNavigationRail: true,
                           ),
-                          AdaptiveDestination(
+                          const AdaptiveDestination(
                             icon: AdaptiveIcon(AdaptiveIcons.camera),
                             label: 'Camera',
                             page: AdaptivePage(
                                 appBar: AdaptiveAppBar(),
                                 child: Center(child: Text('Camera Page'))),
                           ),
-                          AdaptiveDestination(
+                          const AdaptiveDestination(
                             icon: AdaptiveIcon(AdaptiveIcons.badge),
                             label: 'Badge',
                             page: AdaptivePage(
@@ -205,7 +207,7 @@ class MyApp extends StatelessWidget {
                                 child: Center(child: Text('Badge Page'))),
                           ),
                         ]),
-                    AdaptiveGroupDestination(
+                    const AdaptiveGroupDestination(
                         name: "Library",
                         destinations: <AdaptiveDestination>[
                           AdaptiveDestination(
@@ -243,7 +245,7 @@ class MyApp extends StatelessWidget {
                                 child: Center(child: Text('Airplane Page'))),
                           ),
                         ]),
-                    AdaptiveGroupDestination(
+                    const AdaptiveGroupDestination(
                         name: "Search",
                         destinations: <AdaptiveDestination>[
                           AdaptiveDestination(
@@ -317,6 +319,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _setThemeChicago() {
+    setState(() {
+      ThemedAppearanceManager.setThemeOf(context, 'Chicago');
+    });
+  }
+
   void _setThemeMacosUI() {
     setState(() {
       ThemedAppearanceManager.setThemeOf(context, 'MacosUI');
@@ -347,46 +355,49 @@ class _MyHomePageState extends State<MyHomePage> {
                     var theme = context.read<ThemeNotifier>();
                     _setThemeLight(theme);
                   },
-                  child: AdaptiveText("Light")),
+                  child: const AdaptiveText("Light")),
               AdaptiveElevatedButton(
                   onPressed: () {
                     var theme = context.read<ThemeNotifier>();
                     _setThemeDark(theme);
                   },
-                  child: AdaptiveText("Dark")),
+                  child: const AdaptiveText("Dark")),
               AdaptiveElevatedButton(
                   onPressed: () => _setThemeMaterial(),
-                  child: AdaptiveText("Material")),
+                  child: const AdaptiveText("Material")),
               AdaptiveElevatedButton(
                   onPressed: () => _setThemeCupertino(),
-                  child: AdaptiveText("Cupertino")),
+                  child: const AdaptiveText("Cupertino")),
               AdaptiveElevatedButton(
                   onPressed: () => _setThemeFluentUI(),
-                  child: AdaptiveText("FluentUI")),
+                  child: const AdaptiveText("FluentUI")),
               AdaptiveElevatedButton(
                   onPressed: () => _setThemeYaru(),
-                  child: AdaptiveText("Yaru")),
+                  child: const AdaptiveText("Yaru")),
+              AdaptiveElevatedButton(
+                  onPressed: () => _setThemeChicago(),
+                  child: const AdaptiveText("Chicago")),
               AdaptiveElevatedButton(
                   onPressed: () => _setThemeMacosUI(),
-                  child: AdaptiveText("MacosUI")),
+                  child: const AdaptiveText("MacosUI")),
             ],
           ),
         ),
-        ExampleWidget(
+        const ExampleWidget(
             name: "Adaptive Icon",
             child: AdaptiveIcon(
               AdaptiveIcons.home,
               color: Colors.green,
             )),
         const SizedBox(height: 10.0),
-        ExampleWidget(
+        const ExampleWidget(
             name: "Adaptive Text",
             child: Expanded(
               child: AdaptiveText(
                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
             )),
         const SizedBox(height: 10.0),
-        ExampleWidget(
+        const ExampleWidget(
             name: "Adaptive Text Input",
             child: Expanded(
                 child: AdaptiveTextInput(
@@ -447,13 +458,13 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         const SizedBox(height: 20.0),
-        ExampleWidget(
+        const ExampleWidget(
             name: "Adaptive Circular Progress Indicator",
             child: AdaptiveCircularProgressIndicator(
               value: null,
             )),
-        SizedBox(height: 20.0),
-        ExampleWidget(
+        const SizedBox(height: 20.0),
+        const ExampleWidget(
             name: "Adaptive Linear Progress Indicator",
             child: SizedBox(
               height: 10,
@@ -574,6 +585,60 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             )),
+        const SizedBox(height: 10.0),
+        ExampleWidget(
+            name: "Adaptive Alert Dialog",
+            child: AdaptiveElevatedButton(
+              onPressed: () {
+                showAdaptiveAlertDialog(
+                  context: context,
+                  title: const Text("Delete Item"),
+                  content: const Text(
+                      "Are you sure you want to delete this item? This action cannot be undone."),
+                  actions: [
+                    AdaptiveAlertDialogAction(
+                      onPressed: () => Navigator.pop(context),
+                      isDestructiveAction: true,
+                      child: const Text("Delete"),
+                    ),
+                    AdaptiveAlertDialogAction(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text("Cancel"),
+                    ),
+                  ],
+                );
+              },
+              child: const Text("Show Alert Dialog"),
+            )),
+        const SizedBox(height: 10.0),
+        ExampleWidget(
+            name: "Adaptive Card",
+            child: AdaptiveCard(
+              margin: const EdgeInsets.all(8.0),
+              elevation: 2.0,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    AdaptiveText(
+                      "Card Title",
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    const SizedBox(height: 8.0),
+                    AdaptiveText(
+                      "This is a platform-adaptive card that follows the design guidelines of each platform.",
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    const SizedBox(height: 16.0),
+                    AdaptiveElevatedButton(
+                      onPressed: () {},
+                      child: const Text("Action"),
+                    ),
+                  ],
+                ),
+              ),
+            )),
       ],
     );
   }
@@ -589,11 +654,22 @@ class ExampleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: Row(children: [
-        SizedBox(width: 256.0, child: Text(name)),
-        const SizedBox(width: 10.0),
-        child,
-      ]),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 256.0,
+            child: Text(
+              name,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          const SizedBox(width: 10.0),
+          Expanded(
+            child: child,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -659,7 +735,7 @@ class MasterDetailPage extends StatelessWidget {
       masterBuilder: (context) {
         return AdaptivePage(
           appBar: AdaptiveAppBar(
-            title: AdaptiveText("Master"),
+            title: const AdaptiveText("Master"),
             actions: [
               AdaptiveAppBarAction(
                   onPressed: () {
@@ -675,7 +751,7 @@ class MasterDetailPage extends StatelessWidget {
                           child: const AdaptiveText("OK")),
                     );
                   },
-                  icon: AdaptiveIcon(AdaptiveIcons.settings)),
+                  icon: const AdaptiveIcon(AdaptiveIcons.settings)),
             ],
           ),
           child: ListView.builder(
@@ -705,7 +781,7 @@ class MasterDetailPage extends StatelessWidget {
                         child: const AdaptiveText("OK")),
                   );
                 },
-                icon: AdaptiveIcon(AdaptiveIcons.account_circle)),
+                icon: const AdaptiveIcon(AdaptiveIcons.account_circle)),
             title: Text("Master $index"),
             actions: [
               AdaptiveAppBarAction(
@@ -721,7 +797,7 @@ class MasterDetailPage extends StatelessWidget {
                           child: const AdaptiveText("OK")),
                     );
                   },
-                  icon: AdaptiveIcon(AdaptiveIcons.phone)),
+                  icon: const AdaptiveIcon(AdaptiveIcons.phone)),
               AdaptiveAppBarAction(
                   onPressed: () {
                     showAdaptiveModalDialog(
@@ -735,7 +811,7 @@ class MasterDetailPage extends StatelessWidget {
                           child: const AdaptiveText("OK")),
                     );
                   },
-                  icon: AdaptiveIcon(AdaptiveIcons.videocam))
+                  icon: const AdaptiveIcon(AdaptiveIcons.videocam))
             ],
           ),
           bottomBar: bottomBar,
