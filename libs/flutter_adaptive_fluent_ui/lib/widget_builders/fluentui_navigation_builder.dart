@@ -68,7 +68,6 @@ class FluentNavigationState extends State<FluentNavigation> {
   Widget build(BuildContext context) {
     var paneDisplayMode = PaneDisplayMode.auto;
 
-    // ignore: unused_local_variable
     double menuWidth = 50.0;
 
     if (widget.showOnlyModalNavigationDrawerOnDesktop) {

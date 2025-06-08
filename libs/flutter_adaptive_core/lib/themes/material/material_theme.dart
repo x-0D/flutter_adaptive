@@ -30,6 +30,7 @@ class MaterialTheme extends AdaptiveBundle {
             MaterialListTileBuilder(),
             MaterialAlertDialogBuilder(),
             MaterialCardBuilder(),
+            MaterialChipBuilder(),
           },
           bundles: {
             MaterialIcons(),

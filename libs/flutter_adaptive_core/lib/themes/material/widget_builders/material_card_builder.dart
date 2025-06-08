@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_core/flutter_adaptive_core.dart';
 
-/// Builder for Material Design cards.
 class MaterialCardBuilder extends AdaptiveWidgetBuilder<AdaptiveCard> {
   @override
-  Widget build(BuildContext context, AdaptiveCard card) {
-    final theme = Theme.of(context);
+  Widget build(BuildContext context, AdaptiveCard component) {
     return Card(
-      color: card.color ?? theme.cardColor,
-      elevation: card.elevation ?? 2.0,
-      shape: card.shape ??
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-      margin: card.margin,
-      child: card.child,
+      elevation: component.elevation,
+      color: component.color,
+      shadowColor: component.shadowColor,
+      surfaceTintColor: component.surfaceTintColor,
+      shape: component.shape,
+      borderOnForeground: component.borderOnForeground,
+      margin: component.margin,
+      clipBehavior: component.clipBehavior,
+      semanticContainer: component.semanticContainer,
+      child: component.child,
     );
   }
 }

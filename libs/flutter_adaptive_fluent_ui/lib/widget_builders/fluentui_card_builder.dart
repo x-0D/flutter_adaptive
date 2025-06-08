@@ -1,38 +1,33 @@
-import 'package:flutter/material.dart';
+import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_adaptive_core/flutter_adaptive_core.dart';
 
-/// Builder for Fluent UI cards.
 class FluentUICardBuilder extends AdaptiveWidgetBuilder<AdaptiveCard> {
   @override
-  Widget build(BuildContext context, AdaptiveCard card) {
-    final theme = Theme.of(context);
-
+  Widget build(BuildContext context, AdaptiveCard component) {
     return Container(
-      margin: card.margin,
+      margin: component.margin ?? const EdgeInsets.all(4.0),
       decoration: BoxDecoration(
-        color: card.color ?? theme.cardTheme.color,
-        borderRadius: BorderRadius.circular(4),
+        color: component.color ?? FluentTheme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(4.0), // Fluent UI corner radius
         border: Border.all(
-          color: (theme.cardTheme.color?.computeLuminance() ?? 0.0) > 0.5
-              ? const Color(0xFF404040)
-              : const Color(0xFFE0E0E0),
-          width: 1,
+          color: FluentTheme.of(context).resources.cardStrokeColorDefault,
+          width: 1.0,
         ),
-        boxShadow: card.elevation != null
-            ? [
-                BoxShadow(
-                  color: theme.cardTheme.shadowColor?.withOpacity(0.1) ??
-                      Colors.black.withOpacity(0.1),
-                  blurRadius: card.elevation! * 2,
-                  offset: Offset(0, card.elevation!),
-                ),
-              ]
-            : null,
+        boxShadow: _getFluentShadow(component.elevation, context),
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(4),
-        child: card.child,
-      ),
+      clipBehavior: component.clipBehavior ?? Clip.antiAlias,
+      child: component.child,
     );
+  }
+
+  List<BoxShadow> _getFluentShadow(double? elevation, BuildContext context) {
+    if (elevation == null || elevation <= 0) return [];
+    return [
+      BoxShadow(
+        color: FluentTheme.of(context).shadowColor.withOpacity(0.14),
+        blurRadius: elevation * 1.5,
+        offset: Offset(0, elevation * 0.5),
+      ),
+    ];
   }
 }

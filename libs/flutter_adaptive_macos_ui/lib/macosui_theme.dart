@@ -27,7 +27,8 @@ class MacosUITheme extends AdaptiveBundle {
           MacosUIMasterTileBuilder(),
           MacosUIListTileBuilder(),
           MacosUIAlertDialogBuilder(),
-          MacOSUICardBuilder(),
+          MacosUICardBuilder(),
+          MacosUIChipBuilder(),
         }, bundles: {
           MacosUIIcons(),
         });

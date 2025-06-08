@@ -1,37 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_core/flutter_adaptive_core.dart';
+import 'package:yaru/yaru.dart';
 
-/// Builder for Yaru cards.
 class YaruCardBuilder extends AdaptiveWidgetBuilder<AdaptiveCard> {
   @override
-  Widget build(BuildContext context, AdaptiveCard card) {
-    final brightness = MediaQuery.platformBrightnessOf(context);
-    final isDark = brightness == Brightness.dark;
+  Widget build(BuildContext context, AdaptiveCard component) {
+    final theme = Theme.of(context);
+    final yaruTheme = YaruTheme.of(context);
 
-    return Container(
-      margin: card.margin,
-      decoration: BoxDecoration(
-        color: card.color ??
-            (isDark ? const Color(0xFF2D2D2D) : const Color(0xFFF5F5F5)),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: isDark ? const Color(0xFF404040) : const Color(0xFFE0E0E0),
-          width: 1,
-        ),
-        boxShadow: card.elevation != null
-            ? [
-                BoxShadow(
-                  color: Colors.black.withOpacity(isDark ? 0.3 : 0.1),
-                  blurRadius: card.elevation! * 2,
-                  offset: Offset(0, card.elevation!),
-                ),
-              ]
-            : null,
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(8),
-        child: card.child,
-      ),
+    return Card(
+      elevation: component.elevation ?? 1.0, // Yaru uses subtle elevation
+      color: component.color ?? theme.cardColor,
+      shadowColor: component.shadowColor,
+      surfaceTintColor: component.surfaceTintColor,
+      shape: component.shape ??
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.0), // Yaru corner radius
+          ),
+      borderOnForeground: component.borderOnForeground,
+      margin: component.margin ?? const EdgeInsets.all(8.0),
+      clipBehavior: component.clipBehavior,
+      semanticContainer: component.semanticContainer,
+      child: component.child,
     );
   }
 }

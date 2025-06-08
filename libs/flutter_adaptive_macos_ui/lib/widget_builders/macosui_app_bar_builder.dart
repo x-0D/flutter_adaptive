@@ -86,40 +86,42 @@ class MacosUIAppBarBuilder extends AdaptiveWidgetBuilder<AdaptiveAppBar> {
       title: component.title,
       titleWidth: 150.0,
       leading: leading(),
-      actions: component.actions?.map((action) {
-        String? label;
-        if (action.label is AdaptiveText) {
-          AdaptiveText text = action.label as AdaptiveText;
-          label = text.data;
-        }
-        if (action.label is Text) {
-          Text text = action.label as Text;
-          label = text.data;
-        }
+      actions: ((component.actions != null)
+          ? component.actions?.map((action) {
+              String? label;
+              if (action.label is AdaptiveText) {
+                AdaptiveText text = action.label as AdaptiveText;
+                label = text.data;
+              }
+              if (action.label is Text) {
+                Text text = action.label as Text;
+                label = text.data;
+              }
 
-        Icon icon = const Icon(Icons.report_gmailerrorred);
+              Icon icon = const Icon(Icons.report_gmailerrorred);
 
-        if (action.icon is AdaptiveComponent) {
-          AdaptiveComponent adaptiveComponent =
-              action.icon as AdaptiveComponent;
+              if (action.icon is AdaptiveComponent) {
+                AdaptiveComponent adaptiveComponent =
+                    action.icon as AdaptiveComponent;
 
-          dynamic adaptiveIcon = adaptiveComponent.build(context);
+                dynamic adaptiveIcon = adaptiveComponent.build(context);
 
-          if (adaptiveIcon is Icon) {
-            icon = adaptiveIcon;
-          }
-        }
+                if (adaptiveIcon is Icon) {
+                  icon = adaptiveIcon;
+                }
+              }
 
-        if (action.icon is Icon) {
-          icon = action.icon as Icon;
-        }
+              if (action.icon is Icon) {
+                icon = action.icon as Icon;
+              }
 
-        return ToolBarIconButton(
-            onPressed: action.onPressed,
-            label: label ?? "",
-            icon: MacosIcon(icon.icon),
-            showLabel: label != null ? true : false);
-      }).toList(),
+              return ToolBarIconButton(
+                  onPressed: action.onPressed,
+                  label: label ?? "",
+                  icon: MacosIcon(icon.icon),
+                  showLabel: label != null ? true : false);
+            }).toList()
+          : const <ToolbarItem>[]),
     );
   }
 }

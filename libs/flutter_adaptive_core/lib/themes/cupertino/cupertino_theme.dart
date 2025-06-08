@@ -30,6 +30,7 @@ class CupertinoTheme extends AdaptiveBundle {
             CupertinoListTileBuilder(),
             CupertinoAlertDialogBuilder(),
             CupertinoCardBuilder(),
+            CupertinoChipBuilder(),
           },
           bundles: {
             CupertinoIcons(),

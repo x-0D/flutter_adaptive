@@ -33,6 +33,8 @@ class MacosUIAdaptiveAppBuilder extends AdaptiveWidgetBuilder<AdaptiveApp> {
       theme: component.theme?.build(context),
       // theme: MacosThemeData.light(),
       // darkTheme: MacosThemeData.dark(),
+      darkTheme: data,
+      themeMode: component.themeMode,
       // themeMode: data?.brightness == Brightness.light
       //     ? ThemeMode.light
       //     : ThemeMode.dark,
@@ -63,8 +65,6 @@ class MacosUIAdaptiveAppBuilder extends AdaptiveWidgetBuilder<AdaptiveApp> {
       actions: component.actions,
       restorationScopeId: component.restorationScopeId,
       scrollBehavior: component.scrollBehavior ?? const MacosScrollBehavior(),
-      darkTheme: data,
-      themeMode: component.themeMode,
     );
   }
 

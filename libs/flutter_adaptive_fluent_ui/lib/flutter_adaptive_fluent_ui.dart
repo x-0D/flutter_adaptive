@@ -28,3 +28,4 @@ export 'widget_builders/fluentui_master_tile_builder.dart';
 export 'widget_builders/fluentui_list_tile_builder.dart';
 export 'widget_builders/fluentui_alert_dialog_builder.dart';
 export 'widget_builders/fluentui_card_builder.dart';
+export 'widget_builders/fluentui_chip_builder.dart';
